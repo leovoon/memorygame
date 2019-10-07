@@ -13,6 +13,7 @@ $(".btn").on("click", function () {
 });
 
 
+
 function playSound(name) {
 
     var audio = new Audio("sounds/" + name + ".mp3");
@@ -47,6 +48,17 @@ $(document).keypress(function () {
     }
 });
 
+//button start
+$(".controlButton").click(function () {
+    if (!started) {
+
+        //3. The h1 title starts out saying "Press A Key to Start", when the game has started, change this to say "Level 0".
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
+        $(this).hide();
+    }
+});
 
 function nextSequence() {
     userClickedPattern = [];
@@ -85,10 +97,12 @@ function checkAnswer(currentLevel) {
     } else {
 playSound("gameover");
         $("body").addClass("game-over");
-        $("#level-title").text("Game Over, Press Any Key to Restart")
+        $("#level-title").text("Game Over!")
         setTimeout(function () {
             $("body").removeClass("game-over");
         }, 200);
+
+        $(".controlButton").show().text("Restart");
         startOver();
 
     }
